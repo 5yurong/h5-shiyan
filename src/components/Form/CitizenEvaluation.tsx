@@ -1,89 +1,89 @@
-'use client'
+"use client";
 
-import React, { useState, Fragment } from 'react'
-import { TextField, Button, Stack, Link, Card } from '@mui/material'
-import { FormInput, FormSelect, Header } from '@/components'
+import React, { useState, Fragment } from "react";
+import { TextField, Button, Stack, Link, Card } from "@mui/material";
+import { FormInput, FormSelect, Header } from "@/components";
 
 let tolietList = [
   {
-    value: '01',
-    label: '公厕1',
-    community: '所属社区1',
-    tolietType: '公厕类型1',
+    value: "01",
+    label: "公厕1",
+    community: "所属社区1",
+    tolietType: "公厕类型1",
   },
   {
-    value: '02',
-    label: '公厕2',
-    community: '所属社区2',
-    tolietType: '公厕类型2',
+    value: "02",
+    label: "公厕2",
+    community: "所属社区2",
+    tolietType: "公厕类型2",
   },
   {
-    value: '03',
-    label: '公厕3',
-    community: '所属社区3',
-    tolietType: '公厕类型3',
+    value: "03",
+    label: "公厕3",
+    community: "所属社区3",
+    tolietType: "公厕类型3",
   },
-]
+];
 interface FormData {
-  tolietCode: string
-  tolietName: string
-  evaluator: string
-  time: any
-  total: any
-  airQuality: string
-  surfaceAir: string
-  ventilate: string
-  facilityStatus: string
-  completeFacilities: string
+  tolietCode: string;
+  tolietName: string;
+  evaluator: string;
+  time: any;
+  total: any;
+  airQuality: string;
+  surfaceAir: string;
+  ventilate: string;
+  facilityStatus: string;
+  completeFacilities: string;
 }
 
 export function CitizenEvaluation() {
-  const [flag, setFlag] = useState(true)
+  const [flag, setFlag] = useState(true);
   const [formData, setFormData] = useState<FormData>({
     // 在这里定义表单的字段
-    tolietCode: '',
-    tolietName: '',
-    evaluator: '',
-    time: new Date().toLocaleDateString().replace(/\//g, '-'), // 将默认值设置为当前时间,,
-    total: '',
-    airQuality: '',
-    surfaceAir: '',
-    ventilate: '',
-    facilityStatus: '',
-    completeFacilities: '',
-  })
+    tolietCode: "",
+    tolietName: "",
+    evaluator: "",
+    time: new Date().toLocaleDateString().replace(/\//g, "-"), // 将默认值设置为当前时间,,
+    total: "",
+    airQuality: "",
+    surfaceAir: "",
+    ventilate: "",
+    facilityStatus: "",
+    completeFacilities: "",
+  });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target
+    const { name, value } = e.target;
     setFormData((prevData) => {
       return {
         ...prevData,
         [name]: value,
-      }
-    })
-  }
+      };
+    });
+  };
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    setFlag(false)
+    e.preventDefault();
+    setFlag(false);
     const selectTolietName = tolietList.find(
       (item) => item.value === formData.tolietCode
-    )
+    );
 
-    formData.tolietName = selectTolietName ? selectTolietName.label : ''
+    formData.tolietName = selectTolietName ? selectTolietName.label : "";
     formData.total =
       Number(formData.airQuality) +
       Number(formData.surfaceAir) +
       Number(formData.ventilate) +
       Number(formData.facilityStatus) +
-      Number(formData.completeFacilities)
+      Number(formData.completeFacilities);
     // 在这里处理表单提交逻辑
-    console.log(formData, 'formData')
-  }
+    console.log(formData, "formData");
+  };
 
   return (
     <Fragment>
       <Header title="市民评价"></Header>
-      <Card style={{ height: 'calc(100vh - 56px)', overflow: 'scroll' }}>
+      <Card style={{ height: "calc(100vh - 56px)", overflow: "scroll" }}>
         <form onSubmit={handleSubmit}>
           <Stack spacing={2} mt={2}>
             <FormSelect
@@ -173,11 +173,11 @@ export function CitizenEvaluation() {
               flag={flag || formData.completeFacilities ? true : false}
             />
 
-            <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-              <Link href={'/'}>
+            <div style={{ display: "flex", justifyContent: "flex-end" }}>
+              <Link href={"/"}>
                 <Button
                   variant="outlined"
-                  style={{ marginTop: '20px', marginRight: '20px' }}
+                  style={{ marginTop: "20px", marginRight: "20px" }}
                 >
                   返回
                 </Button>
@@ -185,7 +185,7 @@ export function CitizenEvaluation() {
               <Button
                 type="submit"
                 variant="outlined"
-                style={{ marginTop: '20px' }}
+                style={{ marginTop: "20px" }}
               >
                 提交
               </Button>
@@ -194,5 +194,5 @@ export function CitizenEvaluation() {
         </form>
       </Card>
     </Fragment>
-  )
+  );
 }
